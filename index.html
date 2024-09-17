@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+  <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon-32x32.png">
+  <title>Frontend Mentor | Mortgage repayment calculator</title>
+  <style>
+    /* Input */
+    input { outline: none; border: none; padding: .4rem; cursor: pointer; font-weight: 600; color: var(--color8); }
+    input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+
+    /* Label */
+    label { color: var(--color7); font-size: 0.9rem; }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background-color: var(--color4); --color1: hsl(61, 70%, 52%); --color2: hsl(4, 69%, 50%); --color3: hsl(0, 0%, 100%); --color4: hsl(202, 86%, 94%); --color5: hsl(203, 41%, 72%); --color6: hsl(200, 26%, 54%); --color7: hsl(200, 24%, 40%); --color8: hsl(202, 55%, 16%); }
+
+    /* Utilities */
+    h1 { color: var(--color1); }
+    h3 { color: var(--color3); }
+    p { color: var(--color5); }
+    span { background-color: var(--color4); padding: 0.5rem .7rem; border-radius: .2rem; color: var(--color8); font-weight: 600; }
+    .text { font-size: 0.9rem; color: var(--color8); font-weight: 600; }
+
+    /* Container */
+    #Container { width: fit-content; display: flex; margin: 12rem auto; background-color: var(--color3); border-radius: 1rem; }
+
+    /* Left */
+    .Left { display: flex; flex-direction: column; gap: 1.5rem; padding: 1.5rem; }
+
+    /* Top */
+    .Top { display: flex; justify-content: space-between; align-items: center; }
+    .Top h3 { color: var(--color8); }
+    .Top a { color: var(--color7); font-size: 0.85rem; }
+    .Top a:hover { color: var(--color8); }
+
+    /* form */
+    form { display: flex; flex-direction: column; gap: 1rem; }
+
+    /* form inputs */
+    .One { display: flex; flex-direction: column; gap: .5rem; }
+    .One-1 { display: flex; align-items: center; border: var(--color7) solid thin; border-radius: .3rem; }
+    .One-1:hover { border: solid thin; cursor: pointer; }
+    .Two { display: flex;width: 18.6rem; justify-content: space-between; align-items: center; }
+    .Two-1 { display: flex; flex-direction: column; gap: .5rem; }
+    .Two-1-1 { display: flex; align-items: center; border: var(--color7) solid thin; border-radius: .3rem; }
+    .Two-1-1:hover { border: solid thin; cursor: pointer; }
+    .Two-2 { display: flex; flex-direction: column; gap: .5rem; }
+    .Two-2-2 { display: flex; align-items: center; border: var(--color7) solid thin; border-radius: .3rem; }
+    .Two-2-2:hover { border: solid thin; cursor: pointer; }
+    #Principal { width: 100%; }
+    #Time { width: 5.2rem; }
+    #Interest { width: 6.4rem; }
+    .radio { display: flex; flex-direction: column; gap: .5rem; }
+    .radio-3 { display: flex; flex-direction: column; gap: .5rem; }
+    .Three { display: flex; border: var(--color7) solid thin; padding: .4rem; align-content: center; gap: .5rem; border-radius: .3rem; }
+    .Three:hover { border: var(--color1) solid thin; cursor: pointer; }
+    .Three-2 { display: flex; border: var(--color7) solid thin; padding: .4rem; align-content: center; gap: .5rem; border-radius: .3rem; }
+    .Three-2:hover { border: var(--color1) solid thin; cursor: pointer; }
+
+    /* Calculator */
+    .Submit { background-color: var(--color1); width: fit-content; padding: .6rem 1.5rem; display: flex; align-items: center; gap: .5rem; border-radius: 2rem; }
+    .Submit:hover { opacity: .9; cursor: pointer; }
+    .Submit img { width: 1rem; }
+
+    /* Right */
+    .Right { background-color: var(--color8); padding: 1.5rem; border-top-right-radius: 1rem; border-bottom-right-radius: 1rem; border-bottom-left-radius: 3rem; }
+    #r-full { display: flex; flex-direction: column; gap: .5rem; }
+    #r-full p { width: 18rem; font-size: .8rem; }
+    .yellow { padding: .1rem; background-color: var(--color1); border-top-left-radius: 2rem; border-top-right-radius: 2rem; width: 18rem; }
+    .Results { display: flex; flex-direction: column; gap: 1.5rem; background-color: hsl(200, 78%, 5%); padding: 1.5rem; border-radius: .5rem; width: 18rem; }
+    .Results-1 { display: flex; flex-direction: column; gap: .5rem; }
+    .Results-2 { display: flex; flex-direction: column; gap: .5rem; }
+    hr { opacity: .1; }
+    #r-empty { display: flex; flex-direction: column; gap: .5rem; align-items: center; text-align: center; padding-top: 6rem; }
+    #r-empty p { font-size: .8rem; width: 18rem; }
+    #r-empty img { width: 8rem; }
+
+    /* Focus */
+    
+
+
+    /* Display-none's */
+    #required1, #required2, #required3, #required4 { display: none; color: var(--color2); font-size: .8rem; }
+    #r-full { display: none; }
+
+    @media (max-width:500px) {
+        #Container {  width: fit-content; display: block; margin: 0 auto; background-color: var(--color3); border-radius: 0; }
+        .Left { border-radius: 0; }
+        .Right { border-radius: 0; }
+    }
+
+  </style>
+</head>
+<body>
+    <div id="Container">
+
+        <div class="Left">
+            <div class="Top">
+                <h3>
+                    Mortgage Calculator
+                </h3>
+                <a href="index.html">Clear All</a>
+            </div>
+
+            <div class="form">
+                <form action="" onpaste="return false;">
+                    <div class="One">
+                        <label for="Mortgage">Mortgage Amount</label>
+                        <div class="One-1" id="One-1">
+                            <span id="span1">£</span>
+                            <input type="number" name="Mortgage" id="Principal">
+                        </div>
+                        <p id="required1">This field is required</p>
+                    </div>
+
+                    <div class="Two">
+                        <div class="Two-1">
+                                <label for="Mortgage-term">Mortgage Term</label>
+                            <div class="Two-1-1" id="Two-1-1">
+                                <input type="number" name="Mortgage-term" id="Time">
+                                <span id="span2">years</span>
+                            </div>
+                            <p id="required2">This field is required</p>
+                        </div>
+
+                        <div class="Two-2">
+                                <label for="Interest Rate">Interest Rate</label>
+                            <div class="Two-2-2" id="Two-2-2">
+                                <input type="number" name="Interest Rate" id="Interest">
+                                <span id="span3">%</span>
+                            </div>
+                            <p id="required3">This field is required</p>
+                        </div>
+                    </div>
+
+                    <div class="radio">
+                        <div>
+                            <label for="Mortgage-Type">Mortgage Type</label>
+                        </div>
+                        <div class="radio-3">
+                            <div class="Three" id="Three">
+                                <input type="radio" name="type" id="Check1" > <p class="text">Repayment</p>
+                            </div>
+                            <div class="Three-2">
+                                <input type="radio" name="type" id="Check2"> <p class="text">Interest Only</p>
+                            </div>
+                        </div>
+                        <p id="required4">This field is required</p>
+                    </div>
+                </form>
+            </div>
+
+            <div class="Submit" onclick="Checkbox(ValidateInput())">
+                    <img src="assets/images/icon-calculator.svg" alt="">
+                    <p class="text">Calculate Repayments</p>
+            </div>
+
+        </div>
+
+        <div class="Right">
+
+            <div id="r-full">
+                <h3>
+                    Your results
+                </h3>
+                <p>
+                    Your results are shown below based on the information you provided.To adjust the results, edit the form and click “calculate repayments” again.
+                </p>
+                <br>
+
+                <span class="yellow"></span>
+                <div class="Results">
+
+                    <div class="Results-1">
+                        <p>
+                            Your monthly repayments
+                        </p>
+                        <h1 id="Repayment">
+                            
+                        </h1>
+                    </div>
+
+                    <hr>
+
+                    <div class="Results-2">
+                        <p>
+                            Total you'll repay over the term
+                        </p>
+                        <h3 id="Interest_rep">
+                            
+                        </h3>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div id="r-empty">
+                <img src="assets/images/illustration-empty.svg" alt="">
+
+                <h3>
+                    Results shown here
+                </h3>
+                <p>
+                    Complete the form and click “calculate repayments” to see what 
+                    your monthly repayments would be.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <script>
+        function ValidateInput(){
+            const P = document.getElementById('Principal').value;
+            const T = document.getElementById('Time').value;
+            const i = document.getElementById('Interest').value / 100 /12;
+            const Check1 = document.getElementById('Check1');
+            const Check2 = document.getElementById('Check2');
+            if(!P){
+                document.getElementById('required1').style.display = "flex"
+                document.getElementById('span1').style.backgroundColor = "hsl(4, 69%, 50%)";
+                document.getElementById('span1').style.color = "hsl(0, 0%, 100%)";
+                document.getElementById('One-1').style.border = "hsl(4, 69%, 50%) solid thin";
+            }else{
+                document.getElementById('required1').style.display = "none"
+                document.getElementById('span1').style.backgroundColor = "hsl(202, 86%, 94%)";
+                document.getElementById('span1').style.color = "hsl(202, 55%, 16%)";
+                document.getElementById('One-1').style.border = "solid thin";
+            }
+            if(!T){
+                document.getElementById('required2').style.display = "flex"
+                document.getElementById('span2').style.backgroundColor = "hsl(4, 69%, 50%)";
+                document.getElementById('span2').style.color = "hsl(0, 0%, 100%)";
+                document.getElementById('Two-1-1').style.border = "hsl(4, 69%, 50%) solid thin";
+            }else{
+                document.getElementById('required2').style.display = "none"
+                document.getElementById('span2').style.backgroundColor = "hsl(202, 86%, 94%)";
+                document.getElementById('span2').style.color = "hsl(202, 55%, 16%)";
+                document.getElementById('Two-1-1').style.border = "solid thin";
+            }
+            if(!i){
+                document.getElementById('required3').style.display = "flex"
+                document.getElementById('span3').style.backgroundColor = "hsl(4, 69%, 50%)";
+                document.getElementById('span3').style.color = "hsl(0, 0%, 100%)";
+                document.getElementById('Two-2-2').style.border = "hsl(4, 69%, 50%) solid thin";
+            }else{
+                document.getElementById('required3').style.display = "none"
+                document.getElementById('span3').style.backgroundColor = "hsl(202, 86%, 94%)";
+                document.getElementById('span3').style.color = "hsl(202, 55%, 16%)";
+                document.getElementById('Two-2-2').style.border = "solid thin";
+            }
+            if(!Check1.checked && !Check2.checked){
+                document.getElementById('required4').style.display = "flex"
+            }else{
+                document.getElementById('required4').style.display = "none"
+                document.getElementById('r-full').style.display ="flex"
+                document.getElementById('r-empty').style.display ="none"
+            }
+        }
+
+        function Checkbox(){
+            const Check1 = document.getElementById('Check1');
+            const Check2 = document.getElementById('Check2');
+            if(Check1.checked){
+                Repayment();
+            }else if(Check2.checked){
+                Interest_Only();
+            }
+        }
+        
+
+        function Repayment(){
+            const P = document.getElementById('Principal').value;
+            const T = document.getElementById('Time').value;
+            const i = document.getElementById('Interest').value / 100 /12;
+            const M = P * (i*Math.pow(1 + i, T * 12)) / (Math.pow(1 + i, T * 12) - 1);
+            const total = M * T * 12;
+            document.getElementById('Repayment').innerHTML = "£" + M.toLocaleString('en-GB', { maximumFractionDigits: 2 });
+            document.getElementById('Interest_rep').innerHTML = "£" + total.toLocaleString('en-GB', { maximumFractionDigits: 2 });
+        }
+
+        function Interest_Only(){
+            const P = document.getElementById('Principal').value;
+            const T = document.getElementById('Time').value;
+            const i = document.getElementById('Interest').value / 100 /12;
+            const M = P * (i*Math.pow(1 + i, T * 12)) / (Math.pow(1 + i, T * 12) - 1);
+            const total = M * T * 12;
+            const Interest = total - P;
+            document.getElementById('Repayment').innerHTML = "£" + Interest.toLocaleString('en-GB', { maximumFractionDigits: 2 });
+        }
+    </script>
+</body>
+</html>
